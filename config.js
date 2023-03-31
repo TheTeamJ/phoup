@@ -6,6 +6,7 @@ const config = {
     files: {
       Instagram: [
         {
+          app: "Instagram",
           pattern:
             /^IMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})_\d+\.jpe?g/,
           transform: [],

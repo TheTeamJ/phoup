@@ -12,7 +12,7 @@ const createRecipeList = (recipe) => {
 };
 
 /**
- * recipeを満たすファイルパスとOutput情報を返す
+ * recipeを満たすInputファイルとOutput情報を返す
  * @param {*} recipe
  * @param {boolean} applyTransform transformを適用するかどうか
  */
@@ -20,10 +20,10 @@ function parseRecipe(recipe, applyTransform = false) {
   const recipeList = createRecipeList(recipe);
   const basePath = config.InputBasePath;
 
-  const targetPaths = [];
+  const targetFiles = [];
 
   const res = {
-    targetPaths,
+    targetFiles,
     output: recipe[1],
   };
   return res;

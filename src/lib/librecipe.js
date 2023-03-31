@@ -1,3 +1,4 @@
+const path = require("path");
 const { config } = require("./config");
 
 const createRecipeList = (recipe) => {
@@ -17,6 +18,7 @@ const createRecipeList = (recipe) => {
  */
 function parseRecipe(recipe, applyTransform = false) {
   const recipeList = createRecipeList(recipe);
+  const basePath = config.InputBasePath;
 
   const targetPaths = [];
 

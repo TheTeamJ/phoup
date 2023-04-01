@@ -1,14 +1,15 @@
 const path = require("path");
 const { config } = require("../../config");
 
-const createRecipeList = (recipe) => {
-  const recipeList = [];
-  if (Array.isArray(recipe)) {
-    recipeList.push(...recipe);
-  } else {
-    recipeList.push(recipe);
+const detectInputDir = (recipeInput) => {
+  const absKey = recipeInput._;
+  if (!absKey) {
+    throw new Error("Invalid recipe");
   }
-  return recipeList;
+  if (absKey.includes("/")) {
+    throw new Error("Invalid recipe absKey");
+  }
+  return absKey.split(".").join("/");
 };
 
 /**
@@ -17,15 +18,16 @@ const createRecipeList = (recipe) => {
  * @param {boolean} applyTransform transformを適用するかどうか
  */
 function parseRecipe(recipe, applyTransform = false) {
-  const recipeList = createRecipeList(recipe);
   const basePath = config.InputBasePath;
+  const [Input, Outputs] = recipe;
 
   const targetFiles = [];
-  console.log(recipe);
+  const targetPath = path.join(basePath, detectInputDir(Input));
+  console.log(recipe, targetPath);
 
   const res = {
     targetFiles,
-    output: recipe[1],
+    output: Outputs,
   };
   return res;
 }

@@ -1,5 +1,6 @@
 const path = require("path");
 const { config } = require("../../config");
+const { findFiles } = require("./libfile");
 
 const detectInputDir = (recipeInput) => {
   const absKey = recipeInput._;
@@ -17,13 +18,20 @@ const detectInputDir = (recipeInput) => {
  * @param {*} recipe
  * @param {boolean} applyTransform transformを適用するかどうか
  */
-function parseRecipe(recipe, applyTransform = false) {
+async function parseRecipe(recipe, applyTransform = false) {
   const basePath = config.InputBasePath;
   const [Input, Outputs] = recipe;
 
   const targetFiles = [];
-  const targetPath = path.join(basePath, detectInputDir(Input));
-  console.log(recipe, targetPath);
+  const targetDir = path.join(basePath, detectInputDir(Input));
+  for (const setting of Input.settings) {
+    const { pattern, timezone } = setting;
+    // targetDir以下で、patternにマッチするファイルを探す
+    // そのファイルの情報をtargetFilesに追加する
+    const files = await findFiles(targetDir, pattern, timezone);
+    console.log(files);
+  }
+  console.log(recipe, targetDir);
 
   const res = {
     targetFiles,

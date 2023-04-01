@@ -1,6 +1,7 @@
 const path = require("path");
 const { config } = require("../../config");
 const { findFiles } = require("./libfile");
+const { toList } = require("./lib");
 
 const detectInputDir = (recipeInput) => {
   const absKey = recipeInput._;
@@ -14,30 +15,39 @@ const detectInputDir = (recipeInput) => {
 };
 
 /**
- * recipeを満たすInputファイルとOutput情報を返す
+ * recipeを満たす展開されたInputファイルとOutput情報を返す
  * @param {*} recipe
  * @param {boolean} applyTransform transformを適用するかどうか
  */
 async function parseRecipe(recipe, applyTransform = false) {
   const basePath = config.InputBasePath;
-  const [Input, Outputs] = recipe;
+  const [Input, Output] = recipe;
 
   const targetFiles = [];
   const targetDir = path.join(basePath, detectInputDir(Input));
-  for (const setting of Input.settings) {
+  // 複数パターンが定義されているので順に探していく
+  for (const [settingIdx, setting] of Input.settings.entries()) {
     const { pattern, timezone } = setting;
+    // 引き継ぐ値
+    const { app, transform } = setting;
     // targetDir以下で、patternにマッチするファイルを探す
     // そのファイルの情報をtargetFilesに追加する
-    const files = await findFiles(targetDir, pattern, timezone);
-    console.log(">>>", files);
+    const rawFiles = await findFiles(targetDir, pattern, timezone);
+    // TODO: transformを適用する
+    const files = [...rawFiles];
+    // 引き継ぐ情報を追加する
+    files.map((file) => {
+      file._meta = { app };
+      file._ = {
+        id: settingIdx,
+        outputs: toList(Output),
+      };
+    });
+    targetFiles.push(...files);
   }
-  console.log(recipe, targetDir);
-
-  const res = {
-    targetFiles,
-    output: Outputs,
-  };
-  return res;
+  // console.log(recipe, targetDir);
+  console.log("...", targetFiles);
+  return targetFiles;
 }
 
 module.exports = {

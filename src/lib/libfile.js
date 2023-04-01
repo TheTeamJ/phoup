@@ -1,12 +1,20 @@
 const fs = require("fs");
 const path = require("path");
+const hasha = require("hasha");
 const { createDateStr } = require("./libdate");
 const { promisify } = require("util");
 
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 
-const addFile = (file, filePath, fileStat, targetFiles, pattern, timezone) => {
+async function addFile(
+  file,
+  filePath,
+  fileStat,
+  targetFiles,
+  pattern,
+  timezone
+) {
   // ファイル名fileに対して名前付き正規表現patternをマッチさせて、日時情報を取得する
   // 取得に失敗したら例外を投げる
   const match = file.match(pattern);
@@ -20,10 +28,11 @@ const addFile = (file, filePath, fileStat, targetFiles, pattern, timezone) => {
     name: file,
     path: filePath,
     size: fileStat.size,
+    hash: await hasha.fromFile(filePath, { algorithm: "md5" }),
     dateInfo: createDateStr(groups, timezone),
     // modifiedAt: fileStat.mtime,
   });
-};
+}
 
 async function findFiles(targetDir, pattern, timezone, foundFiles = []) {
   const targetFiles = foundFiles || [];
@@ -32,7 +41,7 @@ async function findFiles(targetDir, pattern, timezone, foundFiles = []) {
     const filePath = path.join(targetDir, file);
     const fileStat = await stat(filePath);
     if (fileStat.isFile() && pattern.test(file)) {
-      addFile(file, filePath, fileStat, targetFiles, pattern, timezone);
+      await addFile(file, filePath, fileStat, targetFiles, pattern, timezone);
     } else if (fileStat.isDirectory()) {
       // 再帰的に探す
       console.log("[R] findFiles:", filePath);

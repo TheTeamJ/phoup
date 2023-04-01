@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "dotenv": "^16.0.3",
+    "hasha": "^5.2.2",
     "luxon": "^3.3.0"
   }
 }

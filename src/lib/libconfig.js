@@ -2,7 +2,7 @@
 // keyは、ルートからの階層を含めたキー情報
 // 例 {files: {a: {b: [1]}, {bb: 2}}}
 // -> { files: { a: { b: [1], key: "files.a.b" }, { bb: 2, key: "files.a.bb" }, key: "files.a"}, key: "files"}
-function wrapInput(input, key = "") {
+function printAbsKeys(input, key = "") {
   if (typeof input === "object") {
     if (Array.isArray(input)) {
       return;
@@ -11,13 +11,14 @@ function wrapInput(input, key = "") {
     objKeys.forEach((k) => {
       const newKey = key ? `${key}.${k}` : k;
       input[k]._ = newKey;
-      wrapInput(input[k], newKey);
+      printAbsKeys(input[k], newKey);
     });
   }
 }
 
 function wrapConfig(config) {
-  const input = wrapInput(config.Input);
+  printAbsKeys(config.Input);
+  printAbsKeys(config.Output);
   return config;
 }
 

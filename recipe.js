@@ -1,7 +1,8 @@
-const { Input, Output } = require("./config");
+const { config } = require("./config");
+const { Input, Output } = config;
 
 const recipes = [
-  // [Input[], Output[]], [Input, Output] の形式で記述する
+  // [Input, Output[]], [Input, Output] の形式で記述する
   [Input.files.Instagram, Output.gyazo],
 ];
 

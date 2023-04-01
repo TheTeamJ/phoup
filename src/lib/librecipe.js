@@ -29,7 +29,7 @@ async function parseRecipe(recipe, applyTransform = false) {
     // targetDir以下で、patternにマッチするファイルを探す
     // そのファイルの情報をtargetFilesに追加する
     const files = await findFiles(targetDir, pattern, timezone);
-    console.log(files);
+    console.log(">>>", files);
   }
   console.log(recipe, targetDir);
 

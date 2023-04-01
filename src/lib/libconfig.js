@@ -3,6 +3,7 @@
 // 例 {files: {a: {b: [1]}, {bb: 2}}}
 // -> { files: { a: { b: [1], key: "files.a.b" }, { bb: 2, key: "files.a.bb" }, key: "files.a"}, key: "files"}
 function printAbsKeys(input, key = "") {
+  const _key = "_";
   if (typeof input === "object") {
     if (Array.isArray(input)) {
       return;
@@ -10,8 +11,10 @@ function printAbsKeys(input, key = "") {
     const objKeys = Object.keys(input);
     objKeys.forEach((k) => {
       const newKey = key ? `${key}.${k}` : k;
-      input[k]._ = newKey;
-      printAbsKeys(input[k], newKey);
+      if (![_key, "settings"].includes(k)) {
+        input[k][_key] = newKey;
+        printAbsKeys(input[k], newKey);
+      }
     });
   }
 }

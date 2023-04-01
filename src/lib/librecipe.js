@@ -1,5 +1,5 @@
 const path = require("path");
-const { config } = require("./config");
+const { config } = require("../../config");
 
 const createRecipeList = (recipe) => {
   const recipeList = [];
@@ -21,6 +21,7 @@ function parseRecipe(recipe, applyTransform = false) {
   const basePath = config.InputBasePath;
 
   const targetFiles = [];
+  console.log(recipe);
 
   const res = {
     targetFiles,

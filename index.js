@@ -32,6 +32,7 @@ async function main() {
         now
       );
     }
+    console.log("#invalid_files:", invalidFiles.length);
   }
 }
 

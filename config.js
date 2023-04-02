@@ -63,6 +63,14 @@ const config = {
           },
         ],
       },
+      LINEAlbum: {
+        settings: [
+          {
+            app: "LINE Album",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
       Demo: {},
     },
   },

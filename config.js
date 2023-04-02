@@ -24,6 +24,16 @@ const config = {
           },
         ],
       },
+      SCamera: {
+        settings: [
+          {
+            app: "Camera",
+            pattern:
+              /^(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})\d+\.jpe?g$/,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Slack: {
         settings: [
           {

@@ -7,7 +7,8 @@ const recipes = [
   // [Input.files.miil, Output.gyazo],
   // [Input.files.images, Output.gyazo],
   // [Input.files.GoogleMusic, Output.gyazo],
-  [Input.files.Slack, Output.gyazo],
+  // [Input.files.Slack, Output.gyazo],
+  [Input.files.SCamera, Output.gyazo],
 ];
 
 module.exports = {

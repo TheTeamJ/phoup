@@ -63,11 +63,39 @@ const config = {
           },
         ],
       },
+      LINE: {
+        settings: [
+          {
+            app: "LINE",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
       LINEAlbum: {
         settings: [
           {
             app: "LINE Album",
             pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
+      Photos: {
+        settings: [
+          {
+            app: "Photos",
+            pattern:
+              /^PXL_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i,
+            timezone: "UTC",
+          },
+        ],
+      },
+      Photos2023: {
+        settings: [
+          {
+            app: "Photos",
+            pattern:
+              /^PXL_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i,
+            timezone: "UTC",
           },
         ],
       },

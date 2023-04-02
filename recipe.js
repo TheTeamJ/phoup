@@ -9,7 +9,10 @@ const recipes = [
   // [Input.files.GoogleMusic, Output.gyazo],
   // [Input.files.Slack, Output.gyazo],
   // [Input.files.SCamera, Output.gyazo],
-  [Input.files.LINEAlbum, Output.gyazo],
+  // [Input.files.LINEAlbum, Output.gyazo],
+  // [Input.files.LINE, Output.gyazo],
+  // [Input.files.Photos, Output.gyazo],
+  [Input.files.Photos2023, Output.gyazo],
 ];
 
 module.exports = {

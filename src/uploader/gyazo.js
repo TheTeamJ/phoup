@@ -5,6 +5,7 @@ const FormData = require("form-data");
 // https://gyazo.com/api/docs/image
 const API_URL = "https://upload.gyazo.com/api/upload";
 
+// 失敗した場合はnullを返す
 async function uploadToGyazo(file, outputInfo) {
   const { path, dateInfo, hash, _meta } = file;
   console.log("uploadToGyazo:", path, `(${hash})`);
@@ -35,16 +36,21 @@ async function uploadToGyazo(file, outputInfo) {
   formData.append("imagedata", fs.createReadStream(path));
   // console.log("uploadToGyazo:", formData);
 
-  const res = await fetch(API_URL, {
-    method: "POST",
-    body: formData,
-  });
-  if (!res.ok) {
-    console.error(res);
-    throw new Error("Failed to upload to Gyazo: " + path);
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) {
+      // console.error(res.status, res.statusText);
+      throw new Error("Failed to upload to Gyazo.");
+    }
+    const gyazoData = await res.json();
+    return gyazoData;
+  } catch (err) {
+    console.error(err.message, path);
+    return null;
   }
-  const gyazoData = await res.json();
-  return gyazoData;
 }
 
 module.exports = {

@@ -28,9 +28,10 @@ async function addFile(
   const hash = await hasha.fromFile(filePath, { algorithm: "md5" });
   const dateInfo = createDateStr(groups, timezone);
   if (dateInfo.length === 1) {
+    // 日時情報が不正な場合は拒否リストに追加する
     invalidFiles.push({
       filePath,
-      reason: [dateInfo[0]],
+      details: [dateInfo[0]],
     });
     return;
   }

@@ -1,7 +1,7 @@
 const { recipes } = require("./recipe");
 const { parseRecipe } = require("./src/lib/librecipe");
 const { uploadFile } = require("./src/uploader/");
-const { loadLogLines } = require("./src/lib/liblog");
+const { loadLogLines, saveInvalidFiles } = require("./src/lib/liblog");
 const { printCount } = require("./src/lib/lib");
 
 async function main() {
@@ -9,8 +9,10 @@ async function main() {
   const uploadedHashes = await loadLogLines("hash", true);
 
   for (const recipe of recipes) {
-    console.log("config name:", recipe[0]._); // 0番目がInputの情報
-    const targetFiles = await parseRecipe(recipe);
+    const configName = recipe[0]._; // 0番目がInputの情報
+    console.log("config name:", configName);
+    const { targetFiles, invalidFiles } = await parseRecipe(recipe);
+    await saveInvalidFiles(configName, invalidFiles, now);
     console.log("#files:", targetFiles.length);
 
     // アップロードする

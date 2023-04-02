@@ -3,11 +3,14 @@ const { parseRecipe } = require("./src/lib/librecipe");
 const { uploadFile } = require("./src/uploader/");
 
 async function main() {
-  const targetFiles = await parseRecipe(recipes[0]);
+  for (const recipe of recipes) {
+    console.log("recipe name:", recipe._);
+    const targetFiles = await parseRecipe(recipe);
 
-  // アップロードする
-  for (const file of targetFiles) {
-    await uploadFile(file);
+    // アップロードする
+    for (const file of targetFiles) {
+      const res = await uploadFile(file);
+    }
   }
 }
 

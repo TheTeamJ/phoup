@@ -1,1 +1,5 @@
 # phoup
+
+```
+$ node index.js
+```

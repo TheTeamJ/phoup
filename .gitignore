@@ -1,4 +1,6 @@
 raw/*
 !raw/.gitkeep
+log/*
+!log/.gitkeep
 
 node_modules/*

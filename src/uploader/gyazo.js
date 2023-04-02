@@ -6,8 +6,8 @@ const FormData = require("form-data");
 const API_URL = "https://upload.gyazo.com/api/upload";
 
 async function uploadToGyazo(file, outputInfo) {
-  const { path, dateInfo, _meta } = file;
-  console.log("uploadToGyazo:", path);
+  const { path, dateInfo, hash, _meta } = file;
+  console.log("uploadToGyazo:", path, `(${hash})`);
 
   if (!path || !dateInfo) {
     throw new Error("Invalid file");

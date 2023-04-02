@@ -16,6 +16,22 @@ const config = {
           },
         ],
       },
+      images: {
+        settings: [
+          {
+            app: "Google AR",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
+      GoogleMusic: {
+        settings: [
+          {
+            app: "Google Music",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
       Instagram: {
         settings: [
           {

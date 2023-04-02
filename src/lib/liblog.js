@@ -44,12 +44,12 @@ function getLogPath(logName, dirDateStr, fileDateStr) {
 
 /**
  * @param {string} logName
+ * @param {boolean} uniq
  * @param {string} argDirDateStr
  * @param {string} argFileDateStr
- * @param {boolean} uniq
  * @returns {string[]}
  */
-async function loadLogLines(logName, argDirDateStr, argFileDateStr, uniq) {
+async function loadLogLines(logName, uniq, argDirDateStr, argFileDateStr) {
   // 指定された日時のログファイルを読み込む
   if (argDirDateStr && argFileDateStr) {
     const logFilePath = getLogPath(logName, argDirDateStr, argFileDateStr);
@@ -80,7 +80,7 @@ async function loadLogLines(logName, argDirDateStr, argFileDateStr, uniq) {
         continue;
       }
       const fDateStr = logFileName.replace(/^log_/, "").replace(/\.txt$/, "");
-      const lines = await loadLogLines(logName, dDateStr, fDateStr);
+      const lines = await loadLogLines(logName, false, dDateStr, fDateStr);
       appendToList(lines, allLines, !!uniq);
     }
   }

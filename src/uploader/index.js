@@ -9,7 +9,7 @@ async function uploadFile(file) {
     const destService = output._;
     switch (destService) {
       case "gyazo": {
-        await uploadToGyazo(file);
+        await uploadToGyazo(file, Object.freeze(output));
         break;
       }
       default: {

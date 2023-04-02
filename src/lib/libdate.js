@@ -32,6 +32,7 @@ const createDateStr = (groups, timezone = "UTC") => {
     }
     return year;
   })();
+
   // 0で埋めて2桁にする
   const _month = month.padStart(2, "0");
   const _day = day.padStart(2, "0");
@@ -41,6 +42,10 @@ const createDateStr = (groups, timezone = "UTC") => {
 
   const dateStr = `${_year}-${_month}-${_day}T${_h}:${_m}:${_s}`;
   const dt = DateTime.fromISO(dateStr, { zone: timezone });
+  if (dt.invalid) {
+    console.error("Invalid date:", dateStr, dt.invalid);
+    return null;
+  }
   return createRes(dt);
 };
 

@@ -24,12 +24,18 @@ async function addFile(
   const { groups } = match;
   const { year, month, day, h, m, s, unixtime } = groups;
 
+  const hash = await hasha.fromFile(filePath, { algorithm: "md5" });
+  const dateInfo = createDateStr(groups, timezone);
+  if (!dateInfo) {
+    console.error("Invalid date:", filePath);
+    return;
+  }
   targetFiles.push({
     name: file,
     path: filePath,
     size: fileStat.size,
-    hash: await hasha.fromFile(filePath, { algorithm: "md5" }),
-    dateInfo: createDateStr(groups, timezone),
+    hash,
+    dateInfo,
     // modifiedAt: fileStat.mtime,
   });
 }

@@ -4,12 +4,13 @@ const { uploadFile } = require("./src/uploader/");
 
 async function main() {
   for (const recipe of recipes) {
-    console.log("recipe name:", recipe._);
+    console.log("config name:", recipe[0]._); // 0番目がInputの情報
     const targetFiles = await parseRecipe(recipe);
 
     // アップロードする
     for (const file of targetFiles) {
-      const res = await uploadFile(file);
+      const resList = await uploadFile(file);
+      // console.log(resList);
     }
   }
 }

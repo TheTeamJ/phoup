@@ -23,7 +23,6 @@ async function addFile(
     throw new Error("Invalid file name");
   }
   const { groups } = match;
-  const { year, month, day, h, m, s, unixtime } = groups;
 
   const hash = await hasha.fromFile(filePath, { algorithm: "md5" });
   const dateInfo = createDateStr(groups, timezone);

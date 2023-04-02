@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const hasha = require("hasha");
-const { createDateStr } = require("./libdate");
 const { promisify } = require("util");
+const { createDateStr } = require("./libdate");
 
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
@@ -12,6 +12,7 @@ async function addFile(
   filePath,
   fileStat,
   targetFiles,
+  invalidFiles,
   pattern,
   timezone
 ) {
@@ -26,8 +27,11 @@ async function addFile(
 
   const hash = await hasha.fromFile(filePath, { algorithm: "md5" });
   const dateInfo = createDateStr(groups, timezone);
-  if (!dateInfo) {
-    console.error("Invalid date:", filePath);
+  if (dateInfo.length === 1) {
+    invalidFiles.push({
+      filePath,
+      reason: [dateInfo[0]],
+    });
     return;
   }
   targetFiles.push({
@@ -40,18 +44,32 @@ async function addFile(
   });
 }
 
-async function findFiles(targetDir, pattern, timezone, foundFiles = []) {
+async function findFiles(
+  targetDir,
+  pattern,
+  timezone,
+  foundFiles = [],
+  invalidFiles = []
+) {
   const targetFiles = foundFiles || [];
   const files = await readdir(targetDir);
   for (const file of files) {
     const filePath = path.join(targetDir, file);
     const fileStat = await stat(filePath);
     if (fileStat.isFile() && pattern.test(file)) {
-      await addFile(file, filePath, fileStat, targetFiles, pattern, timezone);
+      await addFile(
+        file,
+        filePath,
+        fileStat,
+        targetFiles,
+        invalidFiles,
+        pattern,
+        timezone
+      );
     } else if (fileStat.isDirectory()) {
       // 再帰的に探す
       console.log("[R] findFiles:", filePath);
-      await findFiles(filePath, pattern, timezone, targetFiles);
+      await findFiles(filePath, pattern, timezone, targetFiles, invalidFiles);
     }
   }
   return targetFiles;

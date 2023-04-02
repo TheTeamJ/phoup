@@ -33,7 +33,15 @@ async function parseRecipe(recipe, applyTransform = false) {
     const { app, transform } = setting;
     // targetDir以下で、patternにマッチするファイルを探す
     // そのファイルの情報をtargetFilesに追加する
-    const rawFiles = await findFiles(targetDir, pattern, timezone);
+    const invalidFiles = [];
+    const rawFiles = await findFiles(
+      targetDir,
+      pattern,
+      timezone,
+      [],
+      invalidFiles
+    );
+    console.log(".....", invalidFiles);
     // TODO: transformを適用する
     const files = [...rawFiles];
     // 引き継ぐ情報を追加する

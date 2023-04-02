@@ -43,8 +43,9 @@ const createDateStr = (groups, timezone = "UTC") => {
   const dateStr = `${_year}-${_month}-${_day}T${_h}:${_m}:${_s}`;
   const dt = DateTime.fromISO(dateStr, { zone: timezone });
   if (dt.invalid) {
-    console.error("Invalid date:", dateStr, dt.invalid);
-    return null;
+    // エラーの場合は要素数1の配列を返す
+    console.error("Invalid DateTime:", dateStr, dt.invalid);
+    return [{ dateStr, ...dt.invalid }];
   }
   return createRes(dt);
 };

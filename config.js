@@ -6,14 +6,29 @@ const config = {
   InputBasePath: "./raw",
   Input: {
     files: {
-      Instagram2: {
+      miil: {
         settings: [
           {
-            app: "Tester",
+            app: "miil",
             pattern:
               /^IMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})\.jpe?g$/,
             timezone: "Asia/Tokyo",
-            transform: [],
+          },
+        ],
+      },
+      images: {
+        settings: [
+          {
+            app: "Google AR",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
+      GoogleMusic: {
+        settings: [
+          {
+            app: "Google Music",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
           },
         ],
       },

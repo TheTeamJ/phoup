@@ -16,10 +16,10 @@ const createDateStr = (groups, timezone = "UTC") => {
   const { year, month, day, h, m, s, unixtime } = groups;
   if (unixtime) {
     if (unixtime.length === 10) {
-      const dt = DateTime.fromSeconds(unixtime, { zone: timezone });
+      const dt = DateTime.fromSeconds(+unixtime);
       return createRes(dt);
     } else if (unixtime.length === 13) {
-      const dt = DateTime.fromMillis(unixtime, { zone: timezone });
+      const dt = DateTime.fromMillis(+unixtime);
       return createRes(dt);
     }
     throw new Error("Invalid unixtime");
@@ -32,6 +32,7 @@ const createDateStr = (groups, timezone = "UTC") => {
     }
     return year;
   })();
+
   // 0で埋めて2桁にする
   const _month = month.padStart(2, "0");
   const _day = day.padStart(2, "0");
@@ -41,6 +42,11 @@ const createDateStr = (groups, timezone = "UTC") => {
 
   const dateStr = `${_year}-${_month}-${_day}T${_h}:${_m}:${_s}`;
   const dt = DateTime.fromISO(dateStr, { zone: timezone });
+  if (dt.invalid) {
+    // エラーの場合は要素数1の配列を返す
+    console.error("Invalid DateTime:", dateStr);
+    return [{ dateStr, ...dt.invalid }];
+  }
   return createRes(dt);
 };
 

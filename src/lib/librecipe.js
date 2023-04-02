@@ -18,13 +18,14 @@ const detectInputDir = (recipeInput) => {
  * recipeを満たす展開されたInputファイルとOutput情報を返す
  * @param {*} recipe
  * @param {boolean} applyTransform transformを適用するかどうか
- * @returns {unknown[]}
+ * @returns {{ targetFiles: unknown[], invalidFiles: unknown[] }}
  */
 async function parseRecipe(recipe, applyTransform = false) {
   const basePath = config.InputBasePath;
   const [Input, Output] = recipe;
 
   const targetFiles = [];
+  const invalidFiles = [];
   const targetDir = path.join(basePath, detectInputDir(Input));
   // 複数パターンが定義されているので順に探していく
   for (const [settingIdx, setting] of Input.settings.entries()) {
@@ -33,7 +34,13 @@ async function parseRecipe(recipe, applyTransform = false) {
     const { app, transform } = setting;
     // targetDir以下で、patternにマッチするファイルを探す
     // そのファイルの情報をtargetFilesに追加する
-    const rawFiles = await findFiles(targetDir, pattern, timezone);
+    const rawFiles = await findFiles(
+      targetDir,
+      pattern,
+      timezone,
+      [],
+      invalidFiles
+    );
     // TODO: transformを適用する
     const files = [...rawFiles];
     // 引き継ぐ情報を追加する
@@ -48,7 +55,7 @@ async function parseRecipe(recipe, applyTransform = false) {
   }
   // console.log(recipe, targetDir);
   // console.log("...", targetFiles);
-  return targetFiles;
+  return { targetFiles, invalidFiles };
 }
 
 module.exports = {

@@ -106,7 +106,21 @@ async function appendLogLines(logName, millis, newLines = []) {
   await fsPromises.appendFile(logFilePath, newLines.join("\n") + "\n");
 }
 
+async function saveInvalidFiles(configName, invalidFiles, millis) {
+  await appendLogLines(
+    "Invalid",
+    millis,
+    invalidFiles.map((x) => {
+      const filePath = x.filePath;
+      x.configName = configName;
+      delete x.filePath;
+      return `${filePath}\t${JSON.stringify(x)}`;
+    })
+  );
+}
+
 module.exports = {
   loadLogLines,
   appendLogLines,
+  saveInvalidFiles,
 };

@@ -2,6 +2,7 @@ require("dotenv").config();
 const { wrapConfig } = require("./src/lib/libconfig");
 
 const config = {
+  LogBasePath: "./log",
   InputBasePath: "./raw",
   Input: {
     files: {
@@ -38,5 +39,5 @@ const config = {
 };
 
 module.exports = {
-  config: wrapConfig(config),
+  config: Object.freeze(wrapConfig(config)),
 };

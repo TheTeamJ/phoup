@@ -12,7 +12,9 @@ async function main() {
     const configName = recipe[0]._; // 0番目がInputの情報
     console.log("config name:", configName);
     const { targetFiles, invalidFiles } = await parseRecipe(recipe);
-    await saveInvalidFiles(configName, invalidFiles, now);
+    if (invalidFiles.length > 0) {
+      await saveInvalidFiles(configName, invalidFiles, now);
+    }
     console.log("#files:", targetFiles.length);
 
     // アップロードする

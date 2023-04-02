@@ -1,4 +1,5 @@
 const { uploadToGyazo } = require("./gyazo");
+const { appendLogLines } = require("../lib/liblog");
 
 const createRes = (destServiceName, result) => {
   return { output: destServiceName, result };
@@ -7,7 +8,7 @@ const createRes = (destServiceName, result) => {
 /**
  * Upload file to destination service
  */
-async function uploadFile(file) {
+async function uploadFile(file, millis) {
   const outputs = file._.outputs;
   const resList = [];
 
@@ -18,6 +19,7 @@ async function uploadFile(file) {
       case "gyazo": {
         res = await uploadToGyazo(file, Object.freeze(output));
         resList.push(createRes(destService, res));
+        await appendLogLines("hash", millis, [file.hash]);
         break;
       }
       default: {

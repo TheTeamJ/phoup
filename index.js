@@ -33,6 +33,7 @@ async function main() {
       );
     }
     console.log("#invalid_files:", invalidFiles.length);
+    console.log("#failed_files :", failedFiles.length);
   }
 }
 

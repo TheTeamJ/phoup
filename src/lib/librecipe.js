@@ -18,6 +18,7 @@ const detectInputDir = (recipeInput) => {
  * recipeを満たす展開されたInputファイルとOutput情報を返す
  * @param {*} recipe
  * @param {boolean} applyTransform transformを適用するかどうか
+ * @returns {unknown[]}
  */
 async function parseRecipe(recipe, applyTransform = false) {
   const basePath = config.InputBasePath;
@@ -46,7 +47,7 @@ async function parseRecipe(recipe, applyTransform = false) {
     targetFiles.push(...files);
   }
   // console.log(recipe, targetDir);
-  console.log("...", targetFiles);
+  // console.log("...", targetFiles);
   return targetFiles;
 }
 

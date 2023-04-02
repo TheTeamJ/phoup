@@ -2,7 +2,8 @@ const { recipes } = require("./recipe");
 const { parseRecipe } = require("./src/lib/librecipe");
 
 async function main() {
-  await parseRecipe(recipes[0]);
+  const targetFiles = await parseRecipe(recipes[0]);
+  console.log(targetFiles);
 }
 
 main();

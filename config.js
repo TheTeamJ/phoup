@@ -21,6 +21,7 @@ const config = {
   },
   Output: {
     gyazo: {
+      token: "test",
       // token: process.env.GYAZO_ACCESS_TOKEN,
     },
   },

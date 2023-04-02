@@ -1,9 +1,22 @@
+const { uploadToGyazo } = require("./gyazo");
+
+/**
+ * Upload file to destination service
+ */
 async function uploadFile(file) {
-  const { name, path, dateInfo, _meta, _ } = file;
-  const outputs = _.outputs;
-  console.log("uploadFile:", path);
+  const outputs = file._.outputs;
   for (const output of outputs) {
-    console.log("  ->", output);
+    const destService = output._;
+    switch (destService) {
+      case "gyazo": {
+        await uploadToGyazo(file);
+        break;
+      }
+      default: {
+        console.error("Invalid destService:", destService);
+        break;
+      }
+    }
   }
 }
 

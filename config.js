@@ -5,12 +5,23 @@ const config = {
   InputBasePath: "./raw",
   Input: {
     files: {
+      Instagram2: {
+        settings: [
+          {
+            app: "Tester",
+            pattern:
+              /^IMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})\.jpe?g$/,
+            timezone: "Asia/Tokyo",
+            transform: [],
+          },
+        ],
+      },
       Instagram: {
         settings: [
           {
             app: "Instagram",
             pattern:
-              /^IMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})_\d+\.jpe?g/,
+              /^IMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})_\d+\.jpe?g$/,
             timezone: "Asia/Tokyo",
             transform: [],
           },
@@ -26,7 +37,6 @@ const config = {
   },
 };
 
-// console.log("...", JSON.stringify(wrapConfig(config)));
 module.exports = {
   config: wrapConfig(config),
 };

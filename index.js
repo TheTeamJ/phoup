@@ -6,7 +6,7 @@ const { printCount } = require("./src/lib/lib");
 
 async function main() {
   const now = new Date().getTime();
-  console.log(await loadLogLines("hash", true));
+  const uploadedHashes = await loadLogLines("hash", true);
 
   for (const recipe of recipes) {
     console.log("config name:", recipe[0]._); // 0番目がInputの情報
@@ -15,9 +15,12 @@ async function main() {
 
     // アップロードする
     for (const [i, file] of targetFiles.entries()) {
+      if (uploadedHashes.includes(file.hash)) {
+        console.log("Already uploaded:", "hash=", file.hash);
+        continue;
+      }
       const resList = await uploadFile(file, now);
       printCount(i, targetFiles.length, 10, "==========");
-      // console.log(resList);
     }
   }
 }

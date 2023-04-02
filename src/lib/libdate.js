@@ -1,5 +1,13 @@
 const { DateTime } = require("luxon");
 
+const createLogDateStr = (millis, includesTime) => {
+  const dt = DateTime.fromMillis(millis);
+  if (includesTime) {
+    return dt.toFormat("yyyy-MM-dd_HHmmss");
+  }
+  return dt.toFormat("yyyy-MM-dd");
+};
+
 const createDateStr = (groups, timezone = "UTC") => {
   const createRes = (dt) => {
     return [dt.toISO(), dt.toUnixInteger(), dt.toMillis()];
@@ -38,4 +46,5 @@ const createDateStr = (groups, timezone = "UTC") => {
 
 module.exports = {
   createDateStr,
+  createLogDateStr,
 };

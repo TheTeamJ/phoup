@@ -19,6 +19,7 @@ async function uploadFile(file, millis) {
       case "gyazo": {
         res = await uploadToGyazo(file, Object.freeze(output));
         resList.push(createRes(destService, res));
+        await appendLogLines("gyazo", millis, [res.image_id]);
         await appendLogLines("hash", millis, [file.hash]);
         break;
       }

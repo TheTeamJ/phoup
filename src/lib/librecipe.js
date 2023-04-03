@@ -51,6 +51,7 @@ async function parseRecipe(recipe, applyTransform = false) {
   const basePath = config.InputBasePath;
   const [Input, Output] = recipe;
 
+  const foundRawFilePaths = new Set();
   const targetFiles = [];
   const invalidFiles = [];
   const targetDir = path.join(basePath, detectInputDir(Input));
@@ -62,14 +63,23 @@ async function parseRecipe(recipe, applyTransform = false) {
     const { app, transform } = setting;
     // targetDir以下で、patternにマッチするファイルを探す
     // そのファイルの情報をtargetFilesに追加する
-    // TODO: これまでにマッチしたファイルは対象外とする
-    const rawFiles = await findFiles(
+    const rawFiles = [];
+    const allRawFiles = await findFiles(
       targetDir,
       pattern,
       timezone,
       [],
       invalidFiles
     );
+
+    // これまでにマッチしたファイルは対象外とする
+    for (const rawFile of allRawFiles) {
+      if (foundRawFilePaths.has(rawFile.path)) {
+        continue;
+      }
+      foundRawFilePaths.add(rawFile.path);
+      rawFiles.push(rawFile);
+    }
 
     // transformsを適用する
     const expandedFiles = applyTransform
@@ -87,8 +97,7 @@ async function parseRecipe(recipe, applyTransform = false) {
     });
     targetFiles.push(...files);
   }
-  // console.log(recipe, targetDir);
-  // console.log("...", targetFiles);
+
   return { targetFiles, invalidFiles };
 }
 

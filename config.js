@@ -181,6 +181,15 @@ const config = {
           },
         ],
       },
+      Photos2017: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Demo: {},
     },
   },

@@ -16,8 +16,9 @@ const recipes = [
   // [Input.files.Photos2022, Output.gyazo],
   // [Input.files.Photos2021, Output.gyazo],
   // [Input.files.Photos2020, Output.gyazo],
-  [Input.files.Photos2019, Output.gyazo],
+  // [Input.files.Photos2019, Output.gyazo],
   // [Input.files.Photos2018, Output.gyazo],
+  [Input.files.Photos2017, Output.gyazo],
 ];
 
 module.exports = {

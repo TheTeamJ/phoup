@@ -237,10 +237,24 @@ const config = {
         ],
       },
       Photos2011: {
-        settings: [],
+        settings: [
+          {
+            app: "Photos",
+            pattern: /^.+\.jpg$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByMetadata],
+          },
+        ],
       },
       Photos2010: {
-        settings: [],
+        settings: [
+          {
+            app: "Photos",
+            pattern: /^.+\.(jpg|png)$/,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByMetadata],
+          },
+        ],
       },
       Photos2005: {
         settings: [

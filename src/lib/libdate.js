@@ -18,6 +18,13 @@ const createDateStr = (groups, timezone = "UTC") => {
     return [dt.toISO(), dt.toUnixInteger(), dt.toMillis()];
   };
 
+  if (!groups) {
+    // timezoneを指定しつつ今日のstartOf("day")の日時を返す
+    const now = DateTime.now();
+    const dt = now.setZone(timezone).startOf("day");
+    return createRes(dt, dt.toISO());
+  }
+
   const { year, month, day, h, m, s, unixtime } = groups;
   if (unixtime) {
     const numUnixtime = +unixtime;

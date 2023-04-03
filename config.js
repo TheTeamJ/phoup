@@ -208,6 +208,15 @@ const config = {
           },
         ],
       },
+      Photos2014: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Demo: {},
     },
   },

@@ -20,9 +20,13 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
   }
   const expandedFiles = [];
   for (const rawFile of rawFiles) {
+    const expandedForRaw = [];
     for (const transform of transformList) {
       try {
-        expandedFiles.push(...(await transform(rawFile)));
+        const argFiles =
+          expandedForRaw.length === 0 ? [rawFile] : expandedForRaw;
+        // TODO: 同じものを返された場合は追加しないほうがいい？
+        expandedForRaw.push(...(await transform(argFiles)));
       } catch (err) {
         console.log(err.message);
         invalidFiles.push({
@@ -32,6 +36,7 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
         });
       }
     }
+    expandedFiles.push(...expandedForRaw);
   }
   return expandedFiles;
 };

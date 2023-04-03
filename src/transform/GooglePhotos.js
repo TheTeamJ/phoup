@@ -4,7 +4,7 @@ const { DateTime } = require("luxon");
 const { createDateInfo } = require("../lib/libdate");
 const fsPromises = fs.promises;
 
-async function overwriteDateByMetadata(file) {
+const apply = async (file) => {
   console.log("[transform/updateDateByMetadata]", file.path);
 
   const fileDir = path.dirname(file.path);
@@ -29,7 +29,15 @@ async function overwriteDateByMetadata(file) {
   }
 
   file.dateInfo = dateInfo;
-  return [file];
+  return file;
+};
+
+async function overwriteDateByMetadata(files = []) {
+  const res = [];
+  for (const file of files) {
+    res.push(await apply(file));
+  }
+  return res;
 }
 
 module.exports = {

@@ -24,12 +24,11 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
       try {
         expandedFiles.push(...(await transform(rawFile)));
       } catch (err) {
-        const transformName = transform.name || "(unknown)";
         console.log(err.message);
         invalidFiles.push({
           filePath: rawFile.path,
           details: [err.message],
-          transformName,
+          transformName: transform.name || "(unknown)",
         });
       }
     }

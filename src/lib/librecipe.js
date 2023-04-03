@@ -14,14 +14,24 @@ const detectInputDir = (recipeInput) => {
   return absKey.split(".").join("/");
 };
 
-const useTransforms = async (transformList, rawFiles) => {
+const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
   if (!transformList || transformList.length === 0) {
     return rawFiles;
   }
   const expandedFiles = [];
   for (const rawFile of rawFiles) {
     for (const transform of transformList) {
-      expandedFiles.push(...(await transform(rawFile)));
+      try {
+        expandedFiles.push(...(await transform(rawFile)));
+      } catch (err) {
+        const transformName = transform.name || "(unknown)";
+        console.log(err.message);
+        invalidFiles.push({
+          filePath: rawFile.path,
+          details: [err.message],
+          transformName,
+        });
+      }
     }
   }
   return expandedFiles;
@@ -57,7 +67,7 @@ async function parseRecipe(recipe, applyTransform = false) {
     );
     // TODO: transformを適用する
     const expandedFiles = applyTransform
-      ? await useTransforms(transform, rawFiles)
+      ? await useTransforms(transform, rawFiles, invalidFiles)
       : rawFiles;
     console.log("expandedFiles:", expandedFiles);
     const files = [...rawFiles];

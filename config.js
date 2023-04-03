@@ -242,7 +242,14 @@ const config = {
         settings: [],
       },
       Photos2005: {
-        settings: [],
+        // TODO!
+        settings: [
+          {
+            app: "Photos",
+            pattern: /^.+\.jpg$/,
+            transform: [],
+          },
+        ],
       },
       Demo: {},
     },

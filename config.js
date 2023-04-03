@@ -3,6 +3,12 @@ const { wrapConfig } = require("./src/lib/libconfig");
 
 const PATTERN_PXL =
   /^PXL_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i;
+const PATTERN_IMG =
+  /^IMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
+const PATTERN_MVIMG =
+  /^MVIMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
+const PATTERN_PANO =
+  /^PANO_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
 
 const config = {
   LogBasePath: "./log",
@@ -106,6 +112,58 @@ const config = {
             app: "Photos",
             pattern: PATTERN_PXL,
             timezone: "UTC",
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
+      Photos2021: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_PXL,
+            timezone: "UTC",
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
+      Photos2020: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_PXL,
+            timezone: "UTC",
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_MVIMG,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_PANO,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
+      Photos2018: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
           },
         ],
       },

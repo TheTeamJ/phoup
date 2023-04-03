@@ -243,11 +243,11 @@ const config = {
         settings: [],
       },
       Photos2005: {
-        // TODO!
         settings: [
           {
             app: "Photos",
             pattern: /^.+\.jpg$/,
+            timezone: "Asia/Tokyo",
             transform: [updateDateByMetadata],
           },
         ],

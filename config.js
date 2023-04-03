@@ -234,6 +234,18 @@ const config = {
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Photos",
+            pattern: /^IMAG\d{4}.+\.jpg$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByMetadata],
+          },
+          {
+            app: "Photos",
+            pattern: /^.+\.(jpg|png)$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByMetadata],
+          },
         ],
       },
       Photos2011: {

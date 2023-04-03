@@ -18,7 +18,7 @@ async function main() {
     const failedFiles = [];
     for (const [i, file] of targetFiles.entries()) {
       if (uploadedHashes.includes(file.hash)) {
-        console.log("Already uploaded:", "hash=", file.hash); // for debug
+        // console.log("Already uploaded:", "hash=", file.hash); // for debug
         continue;
       }
       const resList = await uploadFile(file, now, failedFiles);

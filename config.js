@@ -165,6 +165,11 @@ const config = {
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Photos",
+            pattern: PATTERN_MVIMG,
+            timezone: "Asia/Tokyo",
+          },
         ],
       },
       Photos2018: {

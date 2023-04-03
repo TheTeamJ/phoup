@@ -28,7 +28,7 @@ async function overwriteDateByMetadata(file) {
 
   const dt = DateTime.fromSeconds(+photoTakenTime.timestamp);
   const dateInfo = createDateInfo(dt, dt.toISO());
-  if (dateInfo.length === 3) {
+  if (dateInfo.length > 1) {
     file.dateInfo = dateInfo;
   }
 

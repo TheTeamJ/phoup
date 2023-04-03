@@ -13,25 +13,22 @@ async function overwriteDateByMetadata(file) {
   const metadataFileName = `${pureFileName}.json`;
   const metadataFilePath = path.join(fileDir, metadataFileName);
   if (!fs.existsSync(metadataFilePath)) {
-    const msg = "[updateDateByMetadata] Not found metadata file:";
-    console.error(msg, metadataFilePath);
-    return [file];
+    throw new Error("Not found metadata file for " + metadataFilePath);
   }
 
   const metadata = JSON.parse(await fsPromises.readFile(metadataFilePath));
   const photoTakenTime = metadata.photoTakenTime;
   if (!photoTakenTime) {
-    const msg = "[updateDateByMetadata] Not found photoTakenTime:";
-    console.error(msg, metadataFilePath);
-    return [file];
+    throw new Error("Not found photoTakenTime in " + metadataFilePath);
   }
 
   const dt = DateTime.fromSeconds(+photoTakenTime.timestamp);
   const dateInfo = createDateInfo(dt, dt.toISO());
-  if (dateInfo.length > 1) {
-    file.dateInfo = dateInfo;
+  if (dateInfo.length === 1) {
+    throw new Error("Invalid dateInfo: " + metadataFilePath);
   }
 
+  file.dateInfo = dateInfo;
   return [file];
 }
 

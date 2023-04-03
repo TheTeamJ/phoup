@@ -62,6 +62,7 @@ async function parseRecipe(recipe, applyTransform = false) {
     const { app, transform } = setting;
     // targetDir以下で、patternにマッチするファイルを探す
     // そのファイルの情報をtargetFilesに追加する
+    // TODO: これまでにマッチしたファイルは対象外とする
     const rawFiles = await findFiles(
       targetDir,
       pattern,

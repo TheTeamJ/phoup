@@ -30,6 +30,7 @@ async function parseRecipe(recipe, applyTransform = false) {
   // 複数パターンが定義されているので順に探していく
   for (const [settingIdx, setting] of Input.settings.entries()) {
     const { pattern, timezone } = setting;
+    console.log(`## pattern_${settingIdx}:`, pattern, timezone);
     // 引き継ぐ値
     const { app, transform } = setting;
     // targetDir以下で、patternにマッチするファイルを探す

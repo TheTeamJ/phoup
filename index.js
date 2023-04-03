@@ -12,20 +12,28 @@ async function main() {
     const configName = recipe[0]._; // 0番目がInputの情報
     console.log("config name:", configName);
     const { targetFiles, invalidFiles } = await parseRecipe(recipe);
-    if (invalidFiles.length > 0) {
-      await saveInvalidFiles(configName, invalidFiles, now);
-    }
     console.log("#files:", targetFiles.length);
 
     // アップロードする
+    const failedFiles = [];
     for (const [i, file] of targetFiles.entries()) {
       if (uploadedHashes.includes(file.hash)) {
-        console.log("Already uploaded:", "hash=", file.hash);
+        // console.log("Already uploaded:", "hash=", file.hash); // for debug
         continue;
       }
-      const resList = await uploadFile(file, now);
+      const resList = await uploadFile(file, now, failedFiles);
       printCount(i, targetFiles.length, 10, "==========");
     }
+
+    if (invalidFiles.length > 0 || failedFiles.length > 0) {
+      await saveInvalidFiles(
+        configName,
+        [...invalidFiles, ...failedFiles],
+        now
+      );
+    }
+    console.log("#invalid_files:", invalidFiles.length);
+    console.log("#failed_files :", failedFiles.length);
   }
 }
 

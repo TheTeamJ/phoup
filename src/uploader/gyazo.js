@@ -42,7 +42,7 @@ async function uploadToGyazo(file, outputInfo) {
       body: formData,
     });
     if (!res.ok) {
-      // console.error(res.status, res.statusText);
+      console.error(res.status, res.statusText);
       throw new Error("Failed to upload to Gyazo.");
     }
     const gyazoData = await res.json();

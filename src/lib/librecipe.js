@@ -21,7 +21,7 @@ const useTransforms = async (transformList, rawFiles) => {
   const expandedFiles = [];
   for (const rawFile of rawFiles) {
     for (const transform of transformList) {
-      console.log("....", transform, rawFile);
+      expandedFiles.push(...(await transform(rawFile)));
     }
   }
   return expandedFiles;

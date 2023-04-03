@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { wrapConfig } = require("./src/lib/libconfig");
-const { updateDateByMetadata } = require("./src/transform/metadata");
+const { overwriteDateByMetadata } = require("./src/transform/GooglePhotos");
 
 const PATTERN_PXL =
   /^PXL_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i;
@@ -248,7 +248,7 @@ const config = {
             app: "Photos",
             pattern: /^.+\.jpg$/,
             timezone: "Asia/Tokyo",
-            transform: [updateDateByMetadata],
+            transform: [overwriteDateByMetadata],
           },
         ],
       },

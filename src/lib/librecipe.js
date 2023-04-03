@@ -83,7 +83,6 @@ async function parseRecipe(recipe, applyTransform = false) {
   }
   // console.log(recipe, targetDir);
   // console.log("...", targetFiles);
-  throw new Error("Not implemented");
   return { targetFiles, invalidFiles };
 }
 

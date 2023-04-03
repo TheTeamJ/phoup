@@ -13,13 +13,13 @@ async function overwriteDateByMetadata(file) {
   const metadataFileName = `${pureFileName}.json`;
   const metadataFilePath = path.join(fileDir, metadataFileName);
   if (!fs.existsSync(metadataFilePath)) {
-    throw new Error("Not found metadata file for " + metadataFilePath);
+    throw new Error("Not found metadata file: " + metadataFilePath);
   }
 
   const metadata = JSON.parse(await fsPromises.readFile(metadataFilePath));
   const photoTakenTime = metadata.photoTakenTime;
   if (!photoTakenTime) {
-    throw new Error("Not found photoTakenTime in " + metadataFilePath);
+    throw new Error("Not found photoTakenTime: " + metadataFilePath);
   }
 
   const dt = DateTime.fromSeconds(+photoTakenTime.timestamp);

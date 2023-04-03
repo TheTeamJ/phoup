@@ -65,12 +65,11 @@ async function parseRecipe(recipe, applyTransform = false) {
       [],
       invalidFiles
     );
-    // TODO: transformを適用する
     const expandedFiles = applyTransform
       ? await useTransforms(transform, rawFiles, invalidFiles)
       : rawFiles;
     console.log("expandedFiles:", expandedFiles);
-    const files = [...rawFiles];
+    const files = [...expandedFiles];
     // 引き継ぐ情報を追加する
     files.map((file) => {
       file._meta = { app };

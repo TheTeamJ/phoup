@@ -22,7 +22,7 @@ const apply = async (file) => {
     throw new Error("Not found photoTakenTime: " + metadataFilePath);
   }
 
-  const dt = DateTime.fromSeconds(+photoTakenTime.timestamp);
+  const dt = DateTime.fromSeconds(+photoTakenTime.timestamp + 1);
   const dateInfo = createDateInfo(dt, dt.toISO());
   if (dateInfo.length === 1) {
     throw new Error("Invalid dateInfo: " + metadataFilePath);

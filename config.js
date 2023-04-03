@@ -158,6 +158,15 @@ const config = {
           },
         ],
       },
+      Photos2019: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Photos2018: {
         settings: [
           {

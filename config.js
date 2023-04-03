@@ -232,6 +232,12 @@ const config = {
       Photos2011: {
         settings: [],
       },
+      Photos2010: {
+        settings: [],
+      },
+      Photos2005: {
+        settings: [],
+      },
       Demo: {},
     },
   },

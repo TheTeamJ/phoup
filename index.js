@@ -11,7 +11,7 @@ async function main() {
   for (const recipe of recipes) {
     const configName = recipe[0]._; // 0番目がInputの情報
     console.log("config name:", configName);
-    const { targetFiles, invalidFiles } = await parseRecipe(recipe);
+    const { targetFiles, invalidFiles } = await parseRecipe(recipe, true);
     console.log("#files:", targetFiles.length);
 
     // アップロードする

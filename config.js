@@ -99,7 +99,7 @@ const config = {
         settings: [
           {
             app: "Downloads",
-            pattern: /^nk_.+\.(jpe?g|png|gif|webp)$/i,
+            pattern: /^.+\.(jpe?g|png|gif|webp)$/i,
             timezone: "Asia/Tokyo",
             transform: [
               overwriteDescriptionsByFileMetadata,

@@ -25,10 +25,7 @@ const applyOverwriteDateByFileMetadata = async (file) => {
 };
 
 const applyOverwriteDescriptionsByFileMetadata = async (file) => {
-  console.log(
-    "[transform/applyOverwriteDescriptionsByFileMetadata]",
-    file.path
-  );
+  console.log("[transform/overwriteDescriptionsByFileMetadata]", file.path);
   if (!file.name) {
     throw new Error("Invalid file.name");
   }

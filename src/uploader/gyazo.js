@@ -4,6 +4,7 @@ const FormData = require("form-data");
 
 // https://gyazo.com/api/docs/image
 const API_URL = "https://upload.gyazo.com/api/upload";
+const ACCEPTABLE_FIELDS = ["title", "desc", "referer_url", "app"];
 
 // 失敗した場合はnullを返す
 async function uploadToGyazo(file, outputInfo) {
@@ -19,9 +20,8 @@ async function uploadToGyazo(file, outputInfo) {
   formData.append("access_token", outputInfo.token);
 
   // メタデータをセットする
-  const acceptables = ["title", "desc", "referer_url", "app"];
   for (const key of Object.keys(_meta)) {
-    if (acceptables.includes(key)) {
+    if (ACCEPTABLE_FIELDS.includes(key)) {
       formData.append(key, _meta[key]);
     }
   }

@@ -91,6 +91,21 @@ const config = {
           },
         ],
       },
+      Twitter: {
+        settings: [
+          {
+            app: "Twitter",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Twitter",
+            pattern:
+              /^(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})\.jpg$/,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Screenshots: {
         settings: [
           {

@@ -23,15 +23,19 @@ const applyOverwriteDateByFileMetadata = async (file) => {
   return file;
 };
 
-const applyOverwriteDescByFileMetadata = async (file) => {
+const applyOverwriteDescriptionsByFileMetadata = async (file) => {
   console.log("[transform/overwriteDescByFileMetadata]", file.path);
-  throw new Error("Not implemented.");
+  if (!file.name) {
+    throw new Error("Invalid file.name");
+  }
+  file.desc = file.name;
+  return file;
 };
 
-async function overwriteDescByFileMetadata(files = []) {
+async function overwriteDescriptionsByFileMetadata(files = []) {
   const res = [];
   for (const file of files) {
-    res.push(await applyOverwriteDescByFileMetadata(file));
+    res.push(await applyOverwriteDescriptionsByFileMetadata(file));
   }
   return res;
 }
@@ -46,4 +50,5 @@ async function overwriteDateByFileMetadata(files = []) {
 
 module.exports = {
   overwriteDateByFileMetadata,
+  overwriteDescriptionsByFileMetadata,
 };

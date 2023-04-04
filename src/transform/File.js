@@ -4,7 +4,7 @@ const { createDateInfo } = require("../lib/libdate");
 const fsPromises = fs.promises;
 
 const applyOverwriteDateByFileMetadata = async (file) => {
-  console.log("[transform/overwriteDateByFileMetadata]", file.path);
+  console.log("- overwriteDateByFileMetadata", file.path);
 
   // ファイルの作成日を取得
   const stat = await fsPromises.stat(file.path);
@@ -25,7 +25,7 @@ const applyOverwriteDateByFileMetadata = async (file) => {
 };
 
 const applyOverwriteDescriptionsByFileMetadata = async (file) => {
-  console.log("[transform/overwriteDescriptionsByFileMetadata]", file.path);
+  console.log("- overwriteDescriptionsByFileMetadata", file.path);
   if (!file.name) {
     throw new Error("Invalid file.name");
   }

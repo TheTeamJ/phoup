@@ -5,7 +5,7 @@ const { createDateInfo } = require("../lib/libdate");
 const fsPromises = fs.promises;
 
 const apply = async (file) => {
-  console.log("[transform/updateDateByMetadata]", file.path);
+  console.log("- updateDateByMetadata", file.path);
 
   const fileDir = path.dirname(file.path);
   const pureFileName = file.name.replace(/\-編集済み/, "");

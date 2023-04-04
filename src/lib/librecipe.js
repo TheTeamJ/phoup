@@ -23,6 +23,7 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
     const expandedForRaw = [rawFile];
     // transformフローでエラーが発生したかどうか
     let hasError = false;
+    console.log("[useTransforms]");
     for (const transform of transformList) {
       try {
         // transformを適用する
@@ -99,7 +100,7 @@ async function parseRecipe(recipe, applyTransform = false) {
     const expandedFiles = applyTransform
       ? await useTransforms(transform, rawFiles, invalidFiles)
       : rawFiles;
-    console.log(">>", expandedFiles);
+    // console.log(">>", expandedFiles); // for debug
 
     const files = [...expandedFiles];
     // 引き継ぐ情報を追加する

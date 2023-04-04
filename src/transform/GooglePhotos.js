@@ -33,7 +33,7 @@ const apply = async (file) => {
   return [];
 };
 
-async function overwriteDateByMetadata(files = []) {
+async function overwriteDateByGooglePhotosMetadata(files = []) {
   const res = [];
   for (const file of files) {
     const t = await apply(file);
@@ -43,5 +43,5 @@ async function overwriteDateByMetadata(files = []) {
 }
 
 module.exports = {
-  overwriteDateByMetadata,
+  overwriteDateByGooglePhotosMetadata,
 };

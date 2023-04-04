@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { wrapConfig } = require("./src/lib/libconfig");
-const { overwriteDateByMetadata } = require("./src/transform/GooglePhotos");
+const {
+  overwriteDateByGooglePhotosMetadata,
+} = require("./src/transform/GooglePhotos");
 const {
   overwriteDateByFileMetadata,
   overwriteDescriptionsByFileMetadata,
@@ -15,7 +17,7 @@ const PATTERN_MVIMG =
 const PATTERN_PANO =
   /^PANO_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
 const SCREENSHOT_PATTERN =
-  /^Screenshot_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})\-(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.png$/i;
+  /^Screenshot_(?<year>\d{4})\-?(?<month>\d{2})\-?(?<day>\d{2})\-(?<h>\d{2})\-?(?<m>\d{2})\-?(?<s>\d{2}).*\.png$/i;
 
 const config = {
   LogBasePath: "./log",
@@ -154,6 +156,17 @@ const config = {
             pattern: PATTERN_PXL,
             timezone: "UTC",
           },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
+          },
         ],
       },
       Photos2022: {
@@ -168,6 +181,17 @@ const config = {
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
+          },
         ],
       },
       Photos2021: {
@@ -181,6 +205,17 @@ const config = {
             app: "Photos",
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
@@ -206,6 +241,17 @@ const config = {
             pattern: PATTERN_PANO,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
+          },
         ],
       },
       Photos2019: {
@@ -220,6 +266,17 @@ const config = {
             pattern: PATTERN_MVIMG,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
+          },
         ],
       },
       Photos2018: {
@@ -228,6 +285,17 @@ const config = {
             app: "Photos",
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
@@ -238,6 +306,17 @@ const config = {
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
+          },
         ],
       },
       Photos2016: {
@@ -246,6 +325,17 @@ const config = {
             app: "Photos",
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
@@ -256,6 +346,17 @@ const config = {
             pattern: PATTERN_IMG,
             timezone: "Asia/Tokyo",
           },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: /^スクリーンショット\s.+\.png$/i,
+            timezone: "Asia/Tokyo",
+            transform: [overwriteDateByGooglePhotosMetadata],
+          },
         ],
       },
       Photos2014: {
@@ -263,6 +364,11 @@ const config = {
           {
             app: "Photos",
             pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
             timezone: "Asia/Tokyo",
           },
         ],
@@ -287,13 +393,13 @@ const config = {
             app: "Photos",
             pattern: /^IMAG\d{4}.+\.jpg$/i,
             timezone: "Asia/Tokyo",
-            transform: [overwriteDateByMetadata],
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
           {
             app: "Photos",
             pattern: /^.+\.(jpg|png)$/i,
             timezone: "Asia/Tokyo",
-            transform: [overwriteDateByMetadata],
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
@@ -303,7 +409,7 @@ const config = {
             app: "Photos",
             pattern: /^.+\.jpg$/i,
             timezone: "Asia/Tokyo",
-            transform: [overwriteDateByMetadata],
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
@@ -313,7 +419,7 @@ const config = {
             app: "Photos",
             pattern: /^.+\.(jpg|png)$/,
             timezone: "Asia/Tokyo",
-            transform: [overwriteDateByMetadata],
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
@@ -323,11 +429,20 @@ const config = {
             app: "Photos",
             pattern: /^.+\.jpg$/,
             timezone: "Asia/Tokyo",
-            transform: [overwriteDateByMetadata],
+            transform: [overwriteDateByGooglePhotosMetadata],
           },
         ],
       },
-      Demo: {},
+      // Demo: {
+      //   settings: [
+      //     {
+      //       app: "Photos",
+      //       pattern: /^.+\.(jpg|png)$/,
+      //       timezone: "Asia/Tokyo",
+      //       transform: [overwriteDateByGooglePhotosMetadata],
+      //     },
+      //   ],
+      // },
     },
   },
   Output: {

@@ -52,7 +52,9 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
     }
 
     if (expandedForRaw.length === 0) {
-      expandedFiles.push(rawFile);
+      if (!hasError) {
+        expandedFiles.push(rawFile);
+      }
     } else {
       expandedFiles.push(...expandedForRaw);
     }

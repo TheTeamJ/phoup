@@ -20,18 +20,15 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
   }
   const expandedFiles = [];
   for (const rawFile of rawFiles) {
-    const expandedForRaw = [];
+    const expandedForRaw = [rawFile];
     // ループ中にエラーが発生したかどうかの管理変数
     let hasError = false;
     for (const transform of transformList) {
-      if (hasError) {
-        // 既にエラーが発生しているので、後続の変換はスキップする
-        continue;
-      }
       try {
         // transformを適用する
         const tFiles = await transform(
-          expandedForRaw.length === 0 ? [rawFile] : expandedForRaw
+          // expandedForRaw.length === 0 ? [rawFile] : expandedForRaw
+          expandedForRaw
         );
         const newExpanded = tFiles.filter((x) => !!x);
         if (newExpanded.length > 0) {
@@ -51,13 +48,17 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
       }
     }
 
-    if (expandedForRaw.length === 0) {
-      if (!hasError) {
-        expandedFiles.push(rawFile);
-      }
-    } else {
-      expandedFiles.push(...expandedForRaw);
+    // transformフローで一度でもエラーが発生した場合は、いまのrawFileはなかったことにする
+    if (hasError) {
+      continue;
     }
+
+    expandedFiles.push(...expandedForRaw);
+    // if (expandedForRaw.length === 0) {
+    //   expandedFiles.push(rawFile);
+    // } else {
+    //   expandedFiles.push(...expandedForRaw);
+    // }
   }
   return expandedFiles;
 };

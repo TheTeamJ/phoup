@@ -25,6 +25,11 @@ async function uploadToGyazo(file, outputInfo) {
       formData.append(key, file[key]);
     }
   }
+  for (const key of Object.keys(_meta)) {
+    if (ACCEPTABLE_FIELDS.includes(key)) {
+      formData.append(key, _meta[key]);
+    }
+  }
 
   // TODO: コレクション情報をセットする
 

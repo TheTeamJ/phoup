@@ -21,13 +21,20 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
   const expandedFiles = [];
   for (const rawFile of rawFiles) {
     const expandedForRaw = [];
+    // ループ中にエラーが発生したかどうかの管理変数
+    let hasError = false;
     for (const transform of transformList) {
+      if (hasError) {
+        // 既にエラーが発生しているので、後続の変換はスキップする
+        continue;
+      }
       try {
         const argFiles =
           expandedForRaw.length === 0 ? [rawFile] : expandedForRaw;
         // TODO: 同じものを返された場合は追加しないほうがいい？
         expandedForRaw.push(...(await transform(argFiles)));
       } catch (err) {
+        hasError = true;
         console.log(err.message);
         invalidFiles.push({
           filePath: rawFile.path,

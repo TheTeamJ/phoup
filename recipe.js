@@ -11,7 +11,7 @@ const recipes = [
   // [Input.files.SCamera, Output.gyazo],
   // [Input.files.LINEAlbum, Output.gyazo],
   // [Input.files.LINE, Output.gyazo],
-  [Input.files.Twitter, Output.gyazo],
+  // [Input.files.Twitter, Output.gyazo], // done
   // [Input.files.Screenshots, Output.gyazo], // done
   // [Input.files.Photos, Output.gyazo],
   // [Input.files.Photos2023, Output.gyazo],

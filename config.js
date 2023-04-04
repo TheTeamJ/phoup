@@ -433,16 +433,6 @@ const config = {
           },
         ],
       },
-      // Demo: {
-      //   settings: [
-      //     {
-      //       app: "Photos",
-      //       pattern: /^.+\.(jpg|png)$/,
-      //       timezone: "Asia/Tokyo",
-      //       transform: [overwriteDateByGooglePhotosMetadata],
-      //     },
-      //   ],
-      // },
     },
   },
   Output: {

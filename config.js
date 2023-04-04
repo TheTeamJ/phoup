@@ -10,6 +10,8 @@ const PATTERN_MVIMG =
   /^MVIMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
 const PATTERN_PANO =
   /^PANO_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
+const SCREENSHOT_PATTERN =
+  /^Screenshot_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})\-(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.png$/i;
 
 const config = {
   LogBasePath: "./log",
@@ -86,6 +88,15 @@ const config = {
           {
             app: "LINE Album",
             pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
+      Screenshots: {
+        settings: [
+          {
+            app: "Screenshots",
+            pattern: SCREENSHOT_PATTERN,
+            timezone: "Asia/Tokyo",
           },
         ],
       },

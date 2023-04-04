@@ -100,7 +100,6 @@ async function parseRecipe(recipe, applyTransform = false) {
       ? await useTransforms(transform, rawFiles, invalidFiles)
       : rawFiles;
     console.log(">>", expandedFiles);
-    throw new Error("test");
 
     const files = [...expandedFiles];
     // 引き継ぐ情報を追加する

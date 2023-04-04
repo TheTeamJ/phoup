@@ -1,7 +1,10 @@
 require("dotenv").config();
 const { wrapConfig } = require("./src/lib/libconfig");
 const { overwriteDateByMetadata } = require("./src/transform/GooglePhotos");
-const { overwriteDateByFileMetadata } = require("./src/transform/File");
+const {
+  overwriteDateByFileMetadata,
+  overwriteDescriptionsByFileMetadata,
+} = require("./src/transform/File");
 
 const PATTERN_PXL =
   /^PXL_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i;
@@ -89,6 +92,19 @@ const config = {
           {
             app: "LINE Album",
             pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+        ],
+      },
+      Download: {
+        settings: [
+          {
+            app: "Downloads",
+            pattern: /^nk_.+\.(jpe?g|png|gif|webp)$/i,
+            timezone: "Asia/Tokyo",
+            transform: [
+              overwriteDescriptionsByFileMetadata,
+              overwriteDateByFileMetadata,
+            ],
           },
         ],
       },

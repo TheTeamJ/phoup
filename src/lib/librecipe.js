@@ -29,10 +29,17 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
         continue;
       }
       try {
-        const argFiles =
-          expandedForRaw.length === 0 ? [rawFile] : expandedForRaw;
-        // TODO: 同じものを返された場合は追加しないほうがいい？
-        expandedForRaw.push(...(await transform(argFiles)));
+        // transformを適用する
+        const tFiles = await transform(
+          expandedForRaw.length === 0 ? [rawFile] : expandedForRaw
+        );
+        const newExpanded = tFiles.filter((x) => !!x);
+        if (newExpanded.length > 0) {
+          expandedForRaw.push(...newExpanded);
+        } else {
+          // 参照渡しとしてrawFileが更新されたケース
+          // 何も追加しない
+        }
       } catch (err) {
         hasError = true;
         console.log(err.message);
@@ -43,7 +50,12 @@ const useTransforms = async (transformList, rawFiles, invalidFiles = []) => {
         });
       }
     }
-    expandedFiles.push(...expandedForRaw);
+
+    if (expandedForRaw.length === 0) {
+      expandedFiles.push(rawFile);
+    } else {
+      expandedFiles.push(...expandedForRaw);
+    }
   }
   return expandedFiles;
 };
@@ -92,6 +104,8 @@ async function parseRecipe(recipe, applyTransform = false) {
     const expandedFiles = applyTransform
       ? await useTransforms(transform, rawFiles, invalidFiles)
       : rawFiles;
+    console.log(">>", expandedFiles);
+    throw new Error("test");
 
     const files = [...expandedFiles];
     // 引き継ぐ情報を追加する
@@ -105,7 +119,10 @@ async function parseRecipe(recipe, applyTransform = false) {
     targetFiles.push(...files);
   }
 
-  return { targetFiles, invalidFiles };
+  return {
+    targetFiles: Object.freeze(targetFiles),
+    invalidFiles: Object.freeze(invalidFiles),
+  };
 }
 
 module.exports = {

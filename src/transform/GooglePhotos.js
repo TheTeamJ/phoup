@@ -29,13 +29,15 @@ const apply = async (file) => {
   }
 
   file.dateInfo = dateInfo;
-  return file;
+
+  return [];
 };
 
 async function overwriteDateByMetadata(files = []) {
   const res = [];
   for (const file of files) {
-    res.push(await apply(file));
+    const t = await apply(file);
+    res.push(...t);
   }
   return res;
 }

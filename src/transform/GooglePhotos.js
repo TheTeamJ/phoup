@@ -29,7 +29,19 @@ const replaceMetadataFileName = (fileName) => {
     return fName;
   }
 
+  // raw/files/Photos2020/original_807fc2f9-c891-49ec-9bab-405504ab1cf9_I(1).jpg.json -> raw/files/Photos2020/original_807fc2f9-c891-49ec-9bab-405504ab1cf9_.json
+  function removeOriginalImageSuffixInFilename(fName) {
+    const regex = /^original_([a-z0-9\-]{36})_(.+)\.(png|jpe?g)\.(json)$/i;
+    const matches = fName.match(regex);
+
+    if (matches && matches.length === 5) {
+      return `original_${matches[1]}_.${matches[4]}`;
+    }
+    return fName;
+  }
+
   let newFileName = fileName;
+  newFileName = removeOriginalImageSuffixInFilename(newFileName);
   newFileName = removeImageExtInFilename(newFileName);
   newFileName = shiftBracketInFilename(newFileName);
   console.log("    replaceMetadataFileName:", fileName, "->", newFileName);

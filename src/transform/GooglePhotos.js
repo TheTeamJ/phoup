@@ -18,7 +18,20 @@ const replaceMetadataFileName = (fileName) => {
     return fName;
   }
 
-  const newFileName = shiftBracketInFilename(fileName);
+  // 21314633_404427533292992_1681221058689406806_n.jpg.json -> 21314633_404427533292992_1681221058689406806_n.json
+  function removeImageExtInFilename(fName) {
+    const regex = /^(\d+_\d+_\d+_n)\.(png|jpe?g)\.(json)$/i;
+    const matches = fName.match(regex);
+
+    if (matches && matches.length === 4) {
+      return `${matches[1]}.${matches[3]}`;
+    }
+    return fName;
+  }
+
+  let newFileName = fileName;
+  newFileName = removeImageExtInFilename(newFileName);
+  newFileName = shiftBracketInFilename(newFileName);
   console.log("    replaceMetadataFileName:", fileName, "->", newFileName);
   return newFileName;
 };

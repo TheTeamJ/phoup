@@ -19,8 +19,10 @@ const replaceMetadataFileName = (fileName) => {
   }
 
   // 21314633_404427533292992_1681221058689406806_n.jpg.json -> 21314633_404427533292992_1681221058689406806_n.json
+  // Photos2014/2014_04_02 - 1(3).jpg -> 2014_04_02 - 1.json
   function removeImageExtInFilename(fName) {
-    const regex = /^(\d+_\d+_\d+_n)\.(png|jpe?g)\.(json)$/i;
+    const regex =
+      /^(\d+_\d+_\d+_n|\d{4}_\d{2}_\d{2}\s\-\s\d+(?:\(\d+\))?)\.(png|jpe?g)\.(json)$/i;
     const matches = fName.match(regex);
 
     if (matches && matches.length === 4) {

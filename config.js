@@ -151,6 +151,30 @@ const config = {
           },
         ],
       },
+      Photos2023_3_4: {
+        settings: [
+          {
+            app: "Photos",
+            pattern: PATTERN_PXL,
+            timezone: "UTC",
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_IMG,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Photos",
+            pattern: /^(?<unixtime>\d{13})\.jpe?g$/,
+          },
+          {
+            app: "Photos",
+            pattern:
+              /^(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2})\.jpe?g$/,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Photos2023: {
         settings: [
           {

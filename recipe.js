@@ -15,7 +15,8 @@ const recipes = [
   // [Input.files.Screenshots, Output.gyazo], // done
   // [Input.files.Download, Output.gyazo], // done
   // [Input.files.Photos, Output.gyazo],
-  [Input.files.Photos2023, Output.gyazo], // done-2
+  [Input.files.p, Output.gyazo],
+  // [Input.files.Photos2023, Output.gyazo], // done
   // [Input.files.Photos2022, Output.gyazo], // done
   // [Input.files.Photos2021, Output.gyazo], // done
   // [Input.files.Photos2020, Output.gyazo], // done

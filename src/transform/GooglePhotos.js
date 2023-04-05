@@ -39,7 +39,11 @@ const apply = async (file) => {
   // ファイルパスの置換が必要なパターンかもしれないので試してみる
   if (!found) {
     const replacedMetadataFileName = replaceMetadataFileName(metadataFileName);
-    // 置換したパスでもファイルが見つからない場合はエラーを返す
+    metadataFilePath = path.join(fileDir, replacedMetadataFileName);
+  }
+
+  // 置換したパスでもファイルが見つからない場合はエラーを返す
+  if (!fs.existsSync(metadataFilePath)) {
     throw new Error("Not found metadata file: " + metadataFilePath);
   }
 

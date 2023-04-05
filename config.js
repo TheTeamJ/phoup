@@ -151,6 +151,16 @@ const config = {
           },
         ],
       },
+      Kindle: {
+        settings: [
+          {
+            app: "Kindle",
+            pattern:
+              /^screenshot_(?<year>\d{4})_(?<month>\d{2})_(?<day>\d{2})T(?<h>\d{2})_(?<m>\d{2})_(?<s>\d{2}).+\.png$/i,
+            timezone: "Asia/Tokyo",
+          },
+        ],
+      },
       Photos2023_3_4: {
         settings: [
           {

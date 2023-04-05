@@ -16,7 +16,9 @@ const PATTERN_MVIMG =
   /^MVIMG_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
 const PATTERN_PANO =
   /^PANO_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
-const SCREENSHOT_PATTERN =
+const PATTERN_BURST =
+  /^\d+IMG_\d+_BURST(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i;
+const PATTERN_SCREENSHOT =
   /^Screenshot_(?<year>\d{4})\-?(?<month>\d{2})\-?(?<day>\d{2})\-(?<h>\d{2})\-?(?<m>\d{2})\-?(?<s>\d{2}).*\.png$/i;
 
 const config = {
@@ -135,7 +137,7 @@ const config = {
         settings: [
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
         ],
@@ -158,7 +160,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -189,7 +191,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -220,7 +222,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -261,7 +263,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -292,7 +294,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -300,6 +302,11 @@ const config = {
             pattern: /^スクリーンショット\s.+\.png$/i,
             timezone: "Asia/Tokyo",
             transform: [overwriteDateByGooglePhotosMetadata],
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_BURST,
+            timezone: "Asia/Tokyo",
           },
           {
             app: "Photos",
@@ -318,7 +325,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -344,7 +351,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -370,7 +377,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -396,7 +403,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -422,7 +429,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {
@@ -448,7 +455,7 @@ const config = {
           },
           {
             app: "Screenshots",
-            pattern: SCREENSHOT_PATTERN,
+            pattern: PATTERN_SCREENSHOT,
             timezone: "Asia/Tokyo",
           },
           {

@@ -15,7 +15,7 @@ const recipes = [
   // [Input.files.Screenshots, Output.gyazo], // done
   // [Input.files.Download, Output.gyazo], // done
   // [Input.files.Photos, Output.gyazo],
-  [Input.files.Photos2023, Output.gyazo],
+  // [Input.files.Photos2023, Output.gyazo],
   // [Input.files.Photos2022, Output.gyazo],
   // [Input.files.Photos2021, Output.gyazo],
   // [Input.files.Photos2020, Output.gyazo],
@@ -25,7 +25,7 @@ const recipes = [
   // [Input.files.Photos2016, Output.gyazo],
   // [Input.files.Photos2015, Output.gyazo],
   // [Input.files.Photos2014, Output.gyazo],
-  ////[Input.files.Photos2013, Output.gyazo],
+  // [Input.files.Photos2013, Output.gyazo],
   // [Input.files.Photos2012, Output.gyazo], // done
   // [Input.files.Photos2011, Output.gyazo], // done
   // [Input.files.Photos2010, Output.gyazo], // done

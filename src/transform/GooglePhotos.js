@@ -4,6 +4,25 @@ const { DateTime } = require("luxon");
 const { createDateInfo } = require("../lib/libdate");
 const fsPromises = fs.promises;
 
+const replaceMetadataFileName = (fileName) => {
+  // https://scrapbox.io/teamj/シンプルなファイル名の置換_(ChatGPT)
+  // - IMG_0003(1).PNG.json -> IMG_0003.PNG(1).json
+  // - scan-002(1).jpg.json -> scan-002.jpg(1).json
+  function shiftBracketInFilename(fName) {
+    const regex = /^([^\(\)]+)\((\d+)\)\.(png|jpe?g)\.(json)$/i;
+    const matches = fName.match(regex);
+
+    if (matches && matches.length === 5) {
+      return `${matches[1]}.${matches[3]}(${matches[2]}).${matches[4]}`;
+    }
+    return fName;
+  }
+
+  const newFileName = shiftBracketInFilename(fileName);
+  console.log("    replaceMetadataFileName:", fileName, "->", newFileName);
+  return newFileName;
+};
+
 const apply = async (file) => {
   console.log("- updateDateByMetadata", file.path);
 
@@ -11,8 +30,16 @@ const apply = async (file) => {
   const pureFileName = file.name.replace(/\-編集済み/, "");
 
   const metadataFileName = `${pureFileName}.json`;
-  const metadataFilePath = path.join(fileDir, metadataFileName);
+  let metadataFilePath = path.join(fileDir, metadataFileName);
+  let found = true;
   if (!fs.existsSync(metadataFilePath)) {
+    found = false;
+  }
+
+  // ファイルパスの置換が必要なパターンかもしれないので試してみる
+  if (!found) {
+    const replacedMetadataFileName = replaceMetadataFileName(metadataFileName);
+    // 置換したパスでもファイルが見つからない場合はエラーを返す
     throw new Error("Not found metadata file: " + metadataFilePath);
   }
 

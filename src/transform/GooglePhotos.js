@@ -5,7 +5,7 @@ const { createDateInfo } = require("../lib/libdate");
 const fsPromises = fs.promises;
 
 const replaceMetadataFileName = (fileName) => {
-  // https://scrapbox.io/teamj/シンプルなファイル名の置換_(ChatGPT)
+  // ヒント: https://scrapbox.io/teamj/シンプルなファイル名の置換_(ChatGPT)
   // - IMG_0003(1).PNG.json -> IMG_0003.PNG(1).json
   // - scan-002(1).jpg.json -> scan-002.jpg(1).json
   function shiftBracketInFilename(fName) {

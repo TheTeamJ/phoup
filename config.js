@@ -171,6 +171,11 @@ const config = {
           },
           {
             app: "Photos",
+            pattern: PATTERN_BURST,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Photos",
             pattern: /^.+\.(jpg|png|gif|webp)$/i,
             timezone: "Asia/Tokyo",
             transform: [overwriteDateByGooglePhotosMetadata],
@@ -199,6 +204,11 @@ const config = {
             pattern: /^スクリーンショット\s.+\.png$/i,
             timezone: "Asia/Tokyo",
             transform: [overwriteDateByGooglePhotosMetadata],
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_BURST,
+            timezone: "Asia/Tokyo",
           },
           {
             app: "Photos",

@@ -8,25 +8,32 @@ const createLogDateStr = (millis, includesTime) => {
   return dt.toFormat("yyyy-MM-dd");
 };
 
+const createDateInfo = (dt, valueForLog) => {
+  if (dt.invalid) {
+    // エラーの場合は要素数1の配列を返す
+    console.error("Invalid DateTime:", valueForLog);
+    return [{ dateExpr: valueForLog, ...dt.invalid }];
+  }
+  return [dt.toISO(), dt.toUnixInteger(), dt.toMillis()];
+};
+
 const createDateStr = (groups, timezone = "UTC") => {
-  const createRes = (dt, valueForLog) => {
-    if (dt.invalid) {
-      // エラーの場合は要素数1の配列を返す
-      console.error("Invalid DateTime:", valueForLog);
-      return [{ dateExpr: valueForLog, ...dt.invalid }];
-    }
-    return [dt.toISO(), dt.toUnixInteger(), dt.toMillis()];
-  };
+  if (!groups) {
+    // timezoneを指定しつつ今日のstartOf("day")の日時を返す
+    const now = DateTime.now();
+    const dt = now.setZone(timezone).startOf("day");
+    return createDateInfo(dt, dt.toISO());
+  }
 
   const { year, month, day, h, m, s, unixtime } = groups;
   if (unixtime) {
     const numUnixtime = +unixtime;
     if (unixtime.length === 10) {
       const dt = DateTime.fromSeconds(numUnixtime);
-      return createRes(dt, numUnixtime);
+      return createDateInfo(dt, numUnixtime);
     } else if (unixtime.length === 13) {
       const dt = DateTime.fromMillis(numUnixtime);
-      return createRes(dt, numUnixtime);
+      return createDateInfo(dt, numUnixtime);
     }
     throw new Error("Invalid unixtime");
   }
@@ -53,10 +60,11 @@ const createDateStr = (groups, timezone = "UTC") => {
     console.error("Invalid DateTime:", dateStr);
     return [{ dateStr, ...dt.invalid }];
   }
-  return createRes(dt, dateStr);
+  return createDateInfo(dt, dateStr);
 };
 
 module.exports = {
   createDateStr,
   createLogDateStr,
+  createDateInfo,
 };

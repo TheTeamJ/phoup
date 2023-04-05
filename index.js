@@ -11,14 +11,14 @@ async function main() {
   for (const recipe of recipes) {
     const configName = recipe[0]._; // 0番目がInputの情報
     console.log("config name:", configName);
-    const { targetFiles, invalidFiles } = await parseRecipe(recipe);
+    const { targetFiles, invalidFiles } = await parseRecipe(recipe, true);
     console.log("#files:", targetFiles.length);
 
     // アップロードする
     const failedFiles = [];
     for (const [i, file] of targetFiles.entries()) {
       if (uploadedHashes.includes(file.hash)) {
-        // console.log("Already uploaded:", "hash=", file.hash); // for debug
+        console.log("Already uploaded:", "hash=", file.hash); // for debug
         continue;
       }
       const resList = await uploadFile(file, now, failedFiles);

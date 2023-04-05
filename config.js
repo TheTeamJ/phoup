@@ -17,7 +17,7 @@ const PATTERN_MVIMG =
 const PATTERN_PANO =
   /^PANO_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).*\.jpe?g$/i;
 const PATTERN_BURST =
-  /^\d+IMG_\d+_BURST(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i;
+  /^\d+(IMG|lrPORTRAIT|lPORTRAIT|PORTRAIT)_\d+_BURST(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})(?<h>\d{2})(?<m>\d{2})(?<s>\d{2}).+\.jpe?g$/i;
 const PATTERN_SCREENSHOT =
   /^Screenshot_(?<year>\d{4})\-?(?<month>\d{2})\-?(?<day>\d{2})\-(?<h>\d{2})\-?(?<m>\d{2})\-?(?<s>\d{2}).*\.png$/i;
 
@@ -233,6 +233,11 @@ const config = {
           },
           {
             app: "Photos",
+            pattern: PATTERN_BURST,
+            timezone: "Asia/Tokyo",
+          },
+          {
+            app: "Photos",
             pattern: /^.+\.(jpg|png|gif|webp)$/i,
             timezone: "Asia/Tokyo",
             transform: [overwriteDateByGooglePhotosMetadata],
@@ -271,6 +276,11 @@ const config = {
             pattern: /^スクリーンショット\s.+\.png$/i,
             timezone: "Asia/Tokyo",
             transform: [overwriteDateByGooglePhotosMetadata],
+          },
+          {
+            app: "Photos",
+            pattern: PATTERN_BURST,
+            timezone: "Asia/Tokyo",
           },
           {
             app: "Photos",
